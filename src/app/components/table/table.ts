@@ -3,6 +3,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { RoundSummary } from "../../typing";
 import { RequestHandler } from "../../requests";
+import { columnInfo } from "./typing";
 
 
 @Component({
@@ -12,9 +13,17 @@ import { RequestHandler } from "../../requests";
 })
 export class RoundTable implements OnInit, AfterViewInit {
   rounds = new MatTableDataSource<RoundSummary>();
-  dataSource = new MatTableDataSource<RoundSummary>();
-  displayedColumns: string[] = ['id', 'name', 'vehicle_name', 'driver_name'];
+  columns: columnInfo[] = [
+    { id: "id", traduction: "Id" },
+    { id: "name", traduction: "Nom" },
+    { id: "driver_name", traduction: "Conducteur" },
+    { id: "vehicle_name", traduction: "Véhicule" },
+    { id: "duration_s", traduction: "Durée (s)" },
+    { id: "distance_m", traduction: "Distance (m)" }
+  ]
+  displayedColumns = this.columns.map(c => c.id);
   protected readonly requestHandler = inject(RequestHandler)
+
 
   @ViewChild(MatSort) sort!: MatSort;
 
