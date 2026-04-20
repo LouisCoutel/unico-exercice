@@ -4,241 +4,241 @@
  */
 
 export interface paths {
-    "/round/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Round Get */
-        get: operations["round_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+  "/round/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/round/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Round Id Get */
-        get: operations["round_id_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Round Get */
+    get: operations["round_get"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/round/{id}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/round/{id}/track": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Round Id Track Get */
-        get: operations["round_id_track_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Round Id Get */
+    get: operations["round_id_get"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/round/{id}/track": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
+    /** Round Id Track Get */
+    get: operations["round_id_track_get"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
-    schemas: {
-        /** Round */
-        Round: {
-            /**
-             * Id
-             * Format: uuid
-             * @description Identifiant de la tournée
-             */
-            id: string;
-            /**
-             * Name
-             * @description Nom de la tournée
-             */
-            name: string;
-            /**
-             * Driver Name
-             * @description Nom du chauffeur
-             */
-            driver_name?: string | null;
-            /**
-             * Vehicle Name
-             * @description Nom du véhicule
-             */
-            vehicle_name?: string | null;
-            /**
-             * Duration S
-             * @description Durée de la tournée en secondes
-             */
-            duration_s?: number | null;
-            /**
-             * Distance M
-             * @description Distance parcourue par la tournée en mètres
-             */
-            distance_m?: number | null;
-            /**
-             * Comment
-             * @description Commentaires de fin de tournée
-             */
-            comment: string;
-        };
-        /** RoundSummary */
-        RoundSummary: {
-            /**
-             * Id
-             * Format: uuid
-             * @description Identifiant de la tournée
-             */
-            id: string;
-            /**
-             * Name
-             * @description Nom de la tournée
-             */
-            name: string;
-            /**
-             * Driver Name
-             * @description Nom du chauffeur
-             */
-            driver_name?: string | null;
-            /**
-             * Vehicle Name
-             * @description Nom du véhicule
-             */
-            vehicle_name?: string | null;
-            /**
-             * Duration S
-             * @description Durée de la tournée en secondes
-             */
-            duration_s?: number | null;
-            /**
-             * Distance M
-             * @description Distance parcourue par la tournée en mètres
-             */
-            distance_m?: number | null;
-        };
+  schemas: {
+    /** Round */
+    Round: {
+      /**
+       * Id
+       * Format: uuid
+       * @description Identifiant de la tournée
+       */
+      id: string;
+      /**
+       * Name
+       * @description Nom de la tournée
+       */
+      name: string;
+      /**
+       * Driver Name
+       * @description Nom du chauffeur
+       */
+      driver_name?: string | null;
+      /**
+       * Vehicle Name
+       * @description Nom du véhicule
+       */
+      vehicle_name?: string | null;
+      /**
+       * Duration S
+       * @description Durée de la tournée en secondes
+       */
+      duration_s?: number | null;
+      /**
+       * Distance M
+       * @description Distance parcourue par la tournée en mètres
+       */
+      distance_m?: number | null;
+      /**
+       * Comment
+       * @description Commentaires de fin de tournée
+       */
+      comment: string;
     };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+    /** RoundSummary */
+    RoundSummary: {
+      /**
+       * Id
+       * Format: uuid
+       * @description Identifiant de la tournée
+       */
+      id: string;
+      /**
+       * Name
+       * @description Nom de la tournée
+       */
+      name: string;
+      /**
+       * Driver Name
+       * @description Nom du chauffeur
+       */
+      driver_name?: string | null;
+      /**
+       * Vehicle Name
+       * @description Nom du véhicule
+       */
+      vehicle_name?: string | null;
+      /**
+       * Duration S
+       * @description Durée de la tournée en secondes
+       */
+      duration_s?: number | null;
+      /**
+       * Distance M
+       * @description Distance parcourue par la tournée en mètres
+       */
+      distance_m?: number | null;
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    round_get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Ok */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["RoundSummary"][];
-                };
-            };
-        };
+  round_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    round_id_get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description Ok */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description Ok */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Round"];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "text/plain": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "text/plain": unknown;
-                };
-            };
+        content: {
+          "application/json": components["schemas"]["RoundSummary"][];
         };
+      };
     };
-    round_id_track_get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Ok */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "text/x-google-polyline; precision=6": string;
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "text/plain": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "text/plain": unknown;
-                };
-            };
-        };
+  };
+  round_id_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
     };
+    requestBody?: never;
+    responses: {
+      /** @description Ok */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Round"];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "text/plain": unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "text/plain": unknown;
+        };
+      };
+    };
+  };
+  round_id_track_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Ok */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "text/x-google-polyline; precision=6": string;
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "text/plain": unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "text/plain": unknown;
+        };
+      };
+    };
+  };
 }
