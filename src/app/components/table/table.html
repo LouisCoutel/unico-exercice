@@ -1,26 +1,26 @@
-<table mat-table [dataSource]="rounds$">
+<table mat-table matSort [dataSource]="rounds">
     <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef>ID</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
     <td mat-cell *matCellDef="let element">{{ element.id }}</td>
     </ng-container>
     <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef>Nom</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
     <td mat-cell *matCellDef="let element">{{ element.name }}</td>
     </ng-container>
     <ng-container matColumnDef="driver_name">
-    <th mat-header-cell *matHeaderCellDef>Conducteur</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Conducteur</th>
     <td mat-cell *matCellDef="let element">{{ element.driver_name }}</td>
     </ng-container>
     <ng-container matColumnDef="vehicle_name">
-    <th mat-header-cell *matHeaderCellDef>Véhicule</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Véhicule</th>
     <td mat-cell *matCellDef="let element">{{ element.vehicle_name }}</td>
     </ng-container>
     <ng-container matColumnDef="duration_s">
-    <th mat-header-cell *matHeaderCellDef>Durée (s)</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Durée (s)</th>
     <td mat-cell *matCellDef="let element">{{ element.duration_s }}</td>
     </ng-container>
     <ng-container matColumnDef="distance_m">
-    <th mat-header-cell *matHeaderCellDef>Distance (m)</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Distance (m)</th>
     <td mat-cell *matCellDef="let element">{{ element.distance_m }}</td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
