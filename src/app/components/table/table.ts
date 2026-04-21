@@ -26,6 +26,12 @@ export class RoundTable implements OnInit, AfterViewInit {
     { id: "duration_s", traduction: "Durée" },
     { id: "distance_m", traduction: "Distance parcourue" },
   ];
+  toKm(distance: number): string {
+    return `${Math.round(distance / 10) / 100} km`;
+  }
+  toH(duration: number): string {
+    return `${Math.round(duration / 3600)}h${Math.round((duration % 3600) / 60)}`;
+  }
   displayedColumns = this.columns.map((c) => c.id);
   protected readonly requestHandler = inject(RequestHandler);
 
