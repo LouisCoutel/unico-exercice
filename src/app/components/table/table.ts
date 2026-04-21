@@ -6,17 +6,32 @@ import { RequestHandler } from "../../requests";
 import type { RoundSummary } from "../../typing";
 import { sortBy } from "../../utils";
 import { TableHeader } from "./header";
+import { SearchBar } from "./search";
 import type { columnInfo, validDir, validKey } from "./typing";
 
 @Component({
   selector: "round-table",
   templateUrl: "./table.html",
-  imports: [TableHeader, RouterLink, AsyncPipe],
+  imports: [TableHeader, RouterLink, AsyncPipe, SearchBar],
 })
 export class RoundTable {
   rounds$!: Observable<RoundSummary[]>;
   sorted$!: Observable<RoundSummary[]>;
+  filtered$!: Observable<RoundSummary[]>;
   sortDir = signal<validDir>("default");
+  searchTerm = "";
+
+  handleSearch(value: string) {
+    console.log("YO");
+    if (value.length > 0) {
+      this.filtered$ = this.sorted$.pipe(
+        map((sorted) => [...sorted].filter((r) => r.name.includes(value))),
+      );
+    } else {
+      this.filtered$ = this.sorted$.pipe(map((sorted) => [...sorted]));
+    }
+  }
+
   columns: columnInfo[] = [
     { id: "name", traduction: "Nom de la tournée" },
     { id: "driver_name", traduction: "Nom du conducteur" },
@@ -54,5 +69,6 @@ export class RoundTable {
   constructor() {
     this.rounds$ = this.requestHandler.allRounds();
     this.sortColumn("name");
+    this.handleSearch("");
   }
 }
