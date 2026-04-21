@@ -1,0 +1,5 @@
+{
+	"files": {
+		"includes": ["src/**/*.js", "src/**/*.ts", "rvpc/**/*.html"]
+	}
+}
