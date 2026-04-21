@@ -1,4 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
+
+@theme {
+  --color-neutral-hight: #364153;
+  --color-neutral-highter: #101828;
+  --color-neutral-medium: #d0d0d0;
+  --color-neutral-low: #f9fafb;
+  --color-primary-unico: #155dfc;
+}
+
 @plugin "daisyui";
