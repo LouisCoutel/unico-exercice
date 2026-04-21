@@ -1,24 +1,19 @@
-import {
-  type AfterViewInit,
-  Component,
-  inject,
-  type OnInit,
-  ViewChild,
-} from "@angular/core";
-import { MatSort, MatSortModule } from "@angular/material/sort";
-import { MatTableDataSource, MatTableModule } from "@angular/material/table";
+import { AsyncPipe } from "@angular/common";
+import { Component, effect, inject } from "@angular/core";
 import { RouterLink } from "@angular/router";
+import type { Observable } from "rxjs";
 import { RequestHandler } from "../../requests";
 import type { RoundSummary } from "../../typing";
+import { TableHeader } from "./header";
 import type { columnInfo } from "./typing";
 
 @Component({
   selector: "round-table",
   templateUrl: "./table.html",
-  imports: [MatTableModule, MatSortModule, RouterLink],
+  imports: [TableHeader, RouterLink, AsyncPipe],
 })
-export class RoundTable implements OnInit, AfterViewInit {
-  rounds = new MatTableDataSource<RoundSummary>();
+export class RoundTable {
+  rounds$!: Observable<RoundSummary[]>;
   columns: columnInfo[] = [
     { id: "name", traduction: "Nom de la tournée" },
     { id: "driver_name", traduction: "Nom du conducteur" },
@@ -35,14 +30,9 @@ export class RoundTable implements OnInit, AfterViewInit {
   displayedColumns = this.columns.map((c) => c.id);
   protected readonly requestHandler = inject(RequestHandler);
 
-  @ViewChild(MatSort) sort!: MatSort;
-
-  ngOnInit(): void {
-    this.requestHandler
-      .allRounds()
-      .subscribe((data) => (this.rounds.data = data));
-  }
-  ngAfterViewInit() {
-    this.rounds.sort = this.sort;
+  constructor() {
+    effect(() => {
+      this.rounds$ = this.requestHandler.allRounds();
+    });
   }
 }

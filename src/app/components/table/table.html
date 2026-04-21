@@ -1,24 +1,35 @@
-<table mat-table matSort [dataSource]="rounds">
-    @for (column of columns; track column.id) {
-    <ng-container [matColumnDef]="column.id">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.traduction }}</th>
-    <td mat-cell *matCellDef="let element">
-        @if (column.id === 'name') {
-        <a class="underline hover:text-blue-900"
-           routerLink
-           None="['/round', element['id']]">{{
-            element[column.id]
-        }}</a>
-        } @else if (column.id === 'distance_m') {
-        {{ toKm(element[column.id]) }}
-        } @else if (column.id === 'duration_s') {
-        {{ toH(element[column.id]) }}
-        } @else {
-        {{ element[column.id] }}
-        }
-    </td>
-    </ng-container>
-    }
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
+<table-header />
+<div class="starting:opacity-0 transition-opacity duration-300 text-xs md:text-sm xl:text-base overflow-x-auto rounded-box border-2 border-neutral-medium bg-white text-neutral-hight">
+    <table class="table">
+        <thead class="bg-neutral-low">
+            <tr>
+                @for (column of columns; track column.id) {
+                <th class="font-normal text-neutral-hight">{{ column.traduction }}</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @for (r of rounds$ | async; track r.id) {
+            <tr class="starting:opacity-0 transition-opacity duration-400">
+                <td>
+                    <a class="underline hover:text-blue-900" [routerLink]="['/round', r.id]">{{
+                        r.name
+                    }}</a>
+                </td>
+                <td>{{ r.driver_name }}</td>
+                <td>{{ r.vehicle_name }}</td>
+                <td>
+                    @if (typeof r.duration_s === 'number') {
+                    {{ toH(r.duration_s) }}
+                    }
+                </td>
+                <td>
+                    @if (typeof r.distance_m === 'number') {
+                    {{ toH(r.distance_m) }}
+                    }
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
