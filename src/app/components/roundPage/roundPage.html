@@ -1,4 +1,9 @@
-<header class="rounded-sm border border-slate-100 p-4 bg-white">
-    <h1 class="text-xl lg:text-xl xl:text-2xl mb-2 font-semibold">{{ round.name }}</h1>
-    <p class="text-base 3xl:text-lg">{{ round.comment }}</p>
+<header class="starting:opacity-0 transition-opacity duration-400 rounded-sm border border-slate-100 p-4 bg-white w-fit">
+    @if (round$ | async; as round) {
+    <div class="flex w-full justify-between mb-4">
+        <h1 class="text-xl lg:text-xl xl:text-2xl font-semibold">{{ round.name }}</h1>
+        <button class="btn btn-sm btn-accent" routerLink="/rounds">Retour</button>
+    </div>
+    <p class="text-base 3xl:text-lg max-w-[75ch]">{{ round.comment }}</p>
+    }
 </header>

@@ -7,6 +7,7 @@ import {
 } from "@angular/core";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
+import { RouterLink } from "@angular/router";
 import { RequestHandler } from "../../requests";
 import type { RoundSummary } from "../../typing";
 import type { columnInfo } from "./typing";
@@ -14,7 +15,7 @@ import type { columnInfo } from "./typing";
 @Component({
   selector: "round-table",
   templateUrl: "./table.html",
-  imports: [MatTableModule, MatSortModule],
+  imports: [MatTableModule, MatSortModule, RouterLink],
 })
 export class RoundTable implements OnInit, AfterViewInit {
   rounds = new MatTableDataSource<RoundSummary>();

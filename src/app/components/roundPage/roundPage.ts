@@ -1,27 +1,28 @@
-import { Component, inject, input, type OnInit, signal } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { AsyncPipe } from "@angular/common";
+import { Component, effect, inject, signal } from "@angular/core";
+import { ActivatedRoute, RouterLink } from "@angular/router";
+import type { Observable } from "rxjs";
 import { RequestHandler } from "../../requests";
 import type { Round } from "../../typing";
 
 @Component({
-	selector: "round-page",
-	templateUrl: "./roundPage.html",
-	imports: [],
+  selector: "round-page",
+  templateUrl: "./roundPage.html",
+  imports: [AsyncPipe, RouterLink],
 })
-export class RoundPage implements OnInit {
-	private activatedRoute = inject(ActivatedRoute);
-	id = signal("");
-	round!: Round;
-	constructor() {
-		this.activatedRoute.params.subscribe((params) => {
-			this.id.set(params["id"]);
-		});
-	}
-	protected readonly requestHandler = inject(RequestHandler);
+export class RoundPage {
+  private activatedRoute = inject(ActivatedRoute);
+  id = signal("");
+  round$!: Observable<Round>;
 
-	ngOnInit(): void {
-		this.requestHandler
-			.oneRound(this.id())
-			.subscribe((data) => (this.round = data));
-	}
+  protected readonly requestHandler = inject(RequestHandler);
+
+  constructor() {
+    this.activatedRoute.params.subscribe((params) => {
+      this.id.set(params["id"]);
+    });
+    effect(() => {
+      this.round$ = this.requestHandler.oneRound(this.id());
+    });
+  }
 }
