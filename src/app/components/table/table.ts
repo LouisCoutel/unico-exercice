@@ -21,8 +21,9 @@ export class RoundTable {
   sortDir = signal<validDir>("default");
   searchTerm = "";
 
+  protected readonly requestHandler = inject(RequestHandler);
+
   handleSearch(value: string) {
-    console.log("YO");
     if (value.length > 0) {
       this.filtered$ = this.sorted$.pipe(
         map((sorted) => [...sorted].filter((r) => r.name.includes(value))),
@@ -39,9 +40,11 @@ export class RoundTable {
     { id: "duration_s", traduction: "Durée" },
     { id: "distance_m", traduction: "Distance parcourue" },
   ];
+
   toKm(distance: number): string {
     return `${Math.round(distance / 10) / 100} km`;
   }
+
   toggleDir() {
     const opts: validDir[] = ["asc", "desc", "default"];
     const i = opts.indexOf(this.sortDir());
@@ -59,12 +62,12 @@ export class RoundTable {
         ),
       );
     }
+    this.handleSearch("");
   }
+
   toH(duration: number): string {
     return `${Math.round(duration / 3600)}h${Math.round((duration % 3600) / 60)}`;
   }
-  displayedColumns = this.columns.map((c) => c.id);
-  protected readonly requestHandler = inject(RequestHandler);
 
   constructor() {
     this.rounds$ = this.requestHandler.allRounds();

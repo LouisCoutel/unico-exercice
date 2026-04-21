@@ -8,7 +8,6 @@ import { Component, output } from "@angular/core";
 export class SearchBar {
   searchChange = output<string>();
   triggerSearch(value: string) {
-    console.log("YOOO");
     this.searchChange.emit(value);
   }
 }
