@@ -12,9 +12,7 @@
             @for (r of rounds$ | async; track r.id) {
             <tr class="starting:opacity-0 transition-opacity duration-400">
                 <td>
-                    <a class="underline hover:text-blue-900" [routerLink]="['/round', r.id]">{{
-                        r.name
-                    }}</a>
+                    <a class="underline text-primary-unico" [routerLink]="['/round', r.id]">{{ r.name }}</a>
                 </td>
                 <td>{{ r.driver_name }}</td>
                 <td>{{ r.vehicle_name }}</td>
