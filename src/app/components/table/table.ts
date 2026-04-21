@@ -1,11 +1,12 @@
 import { AsyncPipe } from "@angular/common";
-import { Component, effect, inject } from "@angular/core";
+import { Component, effect, inject, signal } from "@angular/core";
 import { RouterLink } from "@angular/router";
-import type { Observable } from "rxjs";
+import { map, type Observable } from "rxjs";
 import { RequestHandler } from "../../requests";
 import type { RoundSummary } from "../../typing";
+import { sortBy } from "../../utils";
 import { TableHeader } from "./header";
-import type { columnInfo } from "./typing";
+import type { columnInfo, validDir, validKey } from "./typing";
 
 @Component({
   selector: "round-table",
@@ -14,6 +15,8 @@ import type { columnInfo } from "./typing";
 })
 export class RoundTable {
   rounds$!: Observable<RoundSummary[]>;
+  sorted$!: Observable<RoundSummary[]>;
+  sortDir = signal<validDir>("default");
   columns: columnInfo[] = [
     { id: "name", traduction: "Nom de la tournée" },
     { id: "driver_name", traduction: "Nom du conducteur" },
@@ -24,6 +27,24 @@ export class RoundTable {
   toKm(distance: number): string {
     return `${Math.round(distance / 10) / 100} km`;
   }
+  toggleDir() {
+    const opts: validDir[] = ["asc", "desc", "default"];
+    const i = opts.indexOf(this.sortDir());
+    this.sortDir.set(opts[(i + 1) % 3]);
+  }
+
+  sortColumn(key: validKey) {
+    this.toggleDir();
+    if (this.sortDir() === "default") {
+      this.sorted$ = this.rounds$.pipe(map((rounds) => [...rounds]));
+    } else {
+      this.sorted$ = this.rounds$.pipe(
+        map((rounds) =>
+          [...rounds].sort(sortBy(key, this.sortDir() as "asc" | "desc")),
+        ),
+      );
+    }
+  }
   toH(duration: number): string {
     return `${Math.round(duration / 3600)}h${Math.round((duration % 3600) / 60)}`;
   }
@@ -31,8 +52,7 @@ export class RoundTable {
   protected readonly requestHandler = inject(RequestHandler);
 
   constructor() {
-    effect(() => {
-      this.rounds$ = this.requestHandler.allRounds();
-    });
+    this.rounds$ = this.requestHandler.allRounds();
+    this.sortColumn("name");
   }
 }

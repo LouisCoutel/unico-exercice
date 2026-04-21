@@ -4,12 +4,13 @@
         <thead class="bg-neutral-low">
             <tr>
                 @for (column of columns; track column.id) {
-                <th class="font-normal text-neutral-hight">{{ column.traduction }}</th>
+                <th (click)="sortColumn(column.id)"
+                    class="font-normal text-neutral-hight">{{ column.traduction }}</th>
                 }
             </tr>
         </thead>
         <tbody>
-            @for (r of rounds$ | async; track r.id) {
+            @for (r of sorted$ | async; track r.id) {
             <tr class="starting:opacity-0 transition-opacity duration-400">
                 <td>
                     <a class="underline text-primary-unico" [routerLink]="['/round', r.id]">{{ r.name }}</a>
