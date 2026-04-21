@@ -4,11 +4,12 @@ import { ActivatedRoute, RouterLink } from "@angular/router";
 import type { Observable } from "rxjs";
 import { RequestHandler } from "../../requests";
 import type { Round } from "../../typing";
+import { MapComponent } from "../map/map";
 
 @Component({
   selector: "round-page",
   templateUrl: "./roundPage.html",
-  imports: [AsyncPipe, RouterLink],
+  imports: [AsyncPipe, RouterLink, MapComponent],
 })
 export class RoundPage {
   private activatedRoute = inject(ActivatedRoute);

@@ -1,9 +1,10 @@
-<button class="btn  mb-6 bg-neutral-low border-none p-0" routerLink="/rounds">Retour à la liste</button>
-<header class="starting:opacity-0 transition-opacity duration-400 rounded-sm border border-slate-100 p-6 bg-white w-fit">
+<button class="btn hover:shadow-none  mb-6 bg-neutral-low border-none p-0" routerLink="/rounds">Retour à la liste</button>
+<header class="starting:opacity-0 transition-opacity duration-400 rounded-sm border border-neutral-medium p-6 bg-white w-fit mb-6">
     @if (round$ | async; as round) {
     <div class="flex w-full justify-between mb-4">
-        <h1 class="text-xl lg:text-xl xl:text-2xl font-semibold">{{ round.name }}</h1>
+        <h1 class="text-lg lg:text-xl xl:text-2xl font-semibold">{{ round.name }}</h1>
     </div>
-    <p class="text-base 3xl:text-lg max-w-[75ch]">{{ round.comment }}</p>
+    <p class="text-sm md:text-base 3xl:text-lg max-w-[75ch]">{{ round.comment }}</p>
     }
 </header>
+<app-map [id]="id()"></app-map>
