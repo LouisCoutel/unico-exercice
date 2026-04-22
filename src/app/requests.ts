@@ -9,16 +9,19 @@ export class RequestHandler {
   allRounds() {
     return this.http.get<RoundSummary[]>(`${rootUrl}/round/`, {
       responseType: "json",
+      timeout: 3000,
     });
   }
   oneRound(id: string) {
     return this.http.get<Round>(`${rootUrl}/round/${id}`, {
       responseType: "json",
+      timeout: 3000,
     });
   }
   roundTracking(id: string) {
     return this.http.get(`${rootUrl}/round/${id}/track`, {
       responseType: "text",
+      timeout: 3000,
     });
   }
 }

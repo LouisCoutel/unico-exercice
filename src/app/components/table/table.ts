@@ -1,10 +1,11 @@
 import { AsyncPipe } from "@angular/common";
-import { Component, effect, inject, signal } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
 import { RouterLink } from "@angular/router";
-import { map, type Observable } from "rxjs";
+import { catchError, map, type Observable, of } from "rxjs";
 import { RequestHandler } from "../../requests";
 import type { RoundSummary } from "../../typing";
 import { sortBy } from "../../utils";
+import { NotFound } from "../404/404";
 import { TableHeader } from "./header";
 import { SearchBar } from "./search";
 import type { columnInfo, validDir, validKey } from "./typing";
@@ -12,7 +13,7 @@ import type { columnInfo, validDir, validKey } from "./typing";
 @Component({
   selector: "round-table",
   templateUrl: "./table.html",
-  imports: [TableHeader, RouterLink, AsyncPipe, SearchBar],
+  imports: [TableHeader, RouterLink, AsyncPipe, SearchBar, NotFound],
 })
 export class RoundTable {
   rounds$!: Observable<RoundSummary[]>;
@@ -20,6 +21,7 @@ export class RoundTable {
   filtered$!: Observable<RoundSummary[]>;
   sortDir = signal<validDir>("default");
   searchTerm = "";
+  noData = true;
 
   protected readonly requestHandler = inject(RequestHandler);
 
@@ -70,7 +72,14 @@ export class RoundTable {
   }
 
   constructor() {
-    this.rounds$ = this.requestHandler.allRounds();
+    this.rounds$ = this.requestHandler.allRounds().pipe(
+      catchError((err) => {
+        console.error("Failed to load rounds", err);
+        this.noData = true;
+        return of([]); // fallback value so UI doesn’t break
+      }),
+    );
+    this.noData = false;
     this.sortColumn("name");
     this.handleSearch("");
   }

@@ -1,6 +1,7 @@
 <table-header />
 <search-bar (searchChange)="handleSearch($event)"/>
 <div class="starting:opacity-0 transition-opacity duration-300 text-xs md:text-sm xl:text-base overflow-x-auto rounded-box border-2 border-neutral-medium bg-white text-neutral-hight">
+@if (noData) { <not-found/>}
     <table class="table table-xs md:table-md">
         <thead class="bg-neutral-low">
             <tr>

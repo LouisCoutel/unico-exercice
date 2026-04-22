@@ -5,6 +5,6 @@
         <h1 class="text-lg lg:text-xl xl:text-2xl font-semibold">{{ round.name }}</h1>
     </div>
     <p class="text-sm md:text-base 3xl:text-lg max-w-[75ch]">{{ round.comment }}</p>
-    }
+    } @else { <not-found/>}
 </header>
 <app-map [id]="id()"></app-map>
