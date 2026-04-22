@@ -20,8 +20,9 @@ export class RoundTable {
   sorted$!: Observable<RoundSummary[]>;
   filtered$!: Observable<RoundSummary[]>;
   sortDir = signal<validDir>("default");
+  loading = true;
   searchTerm = "";
-  noData = true;
+  noData = signal(true);
 
   protected readonly requestHandler = inject(RequestHandler);
 
@@ -68,18 +69,22 @@ export class RoundTable {
   }
 
   toH(duration: number): string {
-    return `${Math.round(duration / 3600)}h${Math.round((duration % 3600) / 60)}`;
+    let minutes = Math.round((duration % 3600) / 60).toString();
+    minutes = minutes.length < 2 ? `0${minutes}` : minutes;
+    return `${Math.round(duration / 3600)}h${minutes}`;
   }
 
   constructor() {
     this.rounds$ = this.requestHandler.allRounds().pipe(
       catchError((err) => {
         console.error("Failed to load rounds", err);
-        this.noData = true;
+        this.noData.set(true);
+        this.loading = false;
         return of([]); // fallback value so UI doesn’t break
       }),
     );
-    this.noData = false;
+    this.loading = false;
+    this.noData.set(false);
     this.sortColumn("name");
     this.handleSearch("");
   }
