@@ -29,7 +29,11 @@ export class RoundTable {
   handleSearch(value: string) {
     if (value.length > 0) {
       this.filtered$ = this.sorted$.pipe(
-        map((sorted) => [...sorted].filter((r) => r.name.includes(value))),
+        map((sorted) =>
+          [...sorted].filter((r) =>
+            r.name.toLowerCase().includes(value.toLowerCase()),
+          ),
+        ),
       );
     } else {
       this.filtered$ = this.sorted$.pipe(map((sorted) => [...sorted]));
