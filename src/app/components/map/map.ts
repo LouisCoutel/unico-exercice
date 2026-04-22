@@ -1,6 +1,13 @@
-import { type AfterViewInit, Component, inject, input } from "@angular/core";
+import {
+  type AfterViewInit,
+  Component,
+  inject,
+  input,
+  signal,
+} from "@angular/core";
 import { decode } from "@googlemaps/polyline-codec";
 import * as L from "leaflet";
+import { catchError, of, tap, timeout } from "rxjs";
 import { RequestHandler } from "../../requests";
 import { NotFound } from "../404/404";
 
@@ -13,8 +20,8 @@ export class MapComponent implements AfterViewInit {
   private map!: L.Map;
   polyline!: L.Polyline;
   id = input.required<string>();
-  loading: boolean = true;
-  noData: boolean = false;
+  loading = true;
+  noData = signal<boolean>(false);
 
   protected readonly requestHandler = inject(RequestHandler);
 
@@ -32,13 +39,21 @@ export class MapComponent implements AfterViewInit {
     this.loading = false;
   }
   ngAfterViewInit(): void {
-    this.requestHandler.roundTracking(this.id()).subscribe(
-      (text) => {
-        this.initMap(text);
-      },
-      (error) => {
-        this.noData = true;
-      },
-    );
+    this.requestHandler
+      .roundTracking(this.id())
+      .pipe(
+        timeout(5000),
+        tap((text) => {
+          this.initMap(text);
+        }),
+
+        catchError((error) => {
+          console.error("Erreur lors du chargement :", error);
+          this.loading = false;
+          this.noData.set(true);
+          return of(null);
+        }),
+      )
+      .subscribe();
   }
 }
