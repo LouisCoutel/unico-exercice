@@ -1,13 +1,11 @@
-import { Injectable } from "@angular/core";
-import { decode } from "@googlemaps/polyline-codec";
 import { HttpClient } from "@angular/common/http";
-import { Round, RoundSummary } from "./typing";
+import { Injectable, inject } from "@angular/core";
+import type { Round, RoundSummary } from "./typing";
 
 const rootUrl = "https://exo-api.dev.unicofrance.com/";
-
 @Injectable({ providedIn: "root" })
 export class RequestHandler {
-  constructor(private http: HttpClient) { }
+  private http = inject(HttpClient);
   allRounds() {
     return this.http.get<RoundSummary[]>(`${rootUrl}/round/`, {
       responseType: "json",
