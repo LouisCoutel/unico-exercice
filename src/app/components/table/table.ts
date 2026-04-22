@@ -6,8 +6,8 @@ import { RequestHandler } from "../../requests";
 import type { RoundSummary } from "../../typing";
 import { sortBy } from "../../utils";
 import { NotFound } from "../404/404";
-import { TableHeader } from "./header";
-import { SearchBar } from "./search";
+import { TableHeader } from "../header/header";
+import { SearchBar } from "../search/search";
 import type { columnInfo, validDir, validKey } from "./typing";
 
 @Component({
